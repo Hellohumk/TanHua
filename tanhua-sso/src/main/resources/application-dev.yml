@@ -1,0 +1,7 @@
+dev:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tanhua
+    username: root
+    password: root
+

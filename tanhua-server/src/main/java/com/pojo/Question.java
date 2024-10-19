@@ -1,0 +1,16 @@
+package com.pojo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Question extends BasePojo{
+
+    private Long id;
+    private Long userId;
+    //问题内容
+    private String txt;
+}

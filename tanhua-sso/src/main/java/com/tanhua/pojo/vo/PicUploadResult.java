@@ -1,0 +1,17 @@
+package com.tanhua.pojo.vo;
+
+import lombok.Builder;
+import lombok.Data;
+
+
+@Data
+public class PicUploadResult {
+    // 文件唯一标识
+    private String uid;
+    // 文件名 返回路径(文件地址)
+    private String name;
+    // 状态有：uploading done error removed
+    private String status;
+    // 服务端响应内容，如：'{"status": "success"}'
+    private String response;
+}

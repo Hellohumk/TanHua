@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: tanhua-sso
+    #database
+  datasource:
+    driver-class-name: ${dev.datasource.driver-class-name}
+    url: ${dev.datasource.url}
+    username: ${dev.datasource.username}
+    password: ${dev.datasource.password}
+  #redis
+  redis:
+    jedis:
+      pool:
+        max-wait: 5000ms
+        max-idle: 100
+        min-idle: 10
+    timeout: 10s
+    cluster:
+      nodes: 192.168.37.128:6379,192.168.37.128:6380,192.168.37.128:6481
+      max-redirects: 5
+  #upload
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  rocketmq:
+    nameServer: 192.168.37.128:9876
+    producer:
+      group: tanhua
+
+
+
+
+#itcast-tanhua
+jwt:
+  secret: 76bd425b6f29f7fcc2e0bfc286043df1
+
+server:
+  port: 18080
+
+  #mp
+  tomcat:
+    max-http-form-post-size: 50MB
+
+mybatis-plus:
+  type-enums-package: com.tanhua.enums
+  #表名前缀
+  global-config:
+    db-config:
+      table-prefix: tb_
+      #id 策略自增长
+      id-type: auto
+
+#sdk 人脸 windows
+config:
+  arcface-sdk:
+    sdk-lib-path: F:\tanhuaPic\ArcSoft_ArcFace_Java_Windows_x64_V3.0\libs
+    app-id: 6CqRE8Pt3iZNUode34pMoWNYU3LrYz1N6SYrRkvEq9qV
+    sdk-key: 4chj6TDvbBbAdBrD3muxTm7sJe7sCpk4S17sk2ULPKQe
+
+#huanxin
+tanhua:
+  huanxin:
+    url: http://a1.easemob.com/
+    orgName: 1173241006149429
+    appName: tanhua
+    clientId: YXA6nH0W13K_Tp2WQLPFzkQwIA
+    clientSecret: YXA66rbvw3qYC4o8FV0XR-Tu9fXxIZY
+
