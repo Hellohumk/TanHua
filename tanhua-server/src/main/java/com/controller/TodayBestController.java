@@ -6,6 +6,10 @@ import com.pojo.vo.NearUserVo;
 import com.pojo.vo.PageResult;
 import com.pojo.vo.TodayBest;
 import com.service.TodayBestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("todayBest/")
+@Api(value = "今日佳人模块", tags = "今日佳人相关接口")
 public class TodayBestController {
 
     @Autowired
@@ -26,6 +31,11 @@ public class TodayBestController {
      * @return Todaybest 封装后的结果
      */
     @GetMapping
+    @ApiOperation(value = "查询今日佳人", notes = "查询今日佳人的信息")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "查询成功", response = TodayBest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public TodayBest queryTodayBest(@RequestHeader("Authorization") String
                                             token){
         return todayBestService.queryTodayBest(token);
@@ -41,6 +51,11 @@ public class TodayBestController {
      * @return
      */
     @GetMapping("{id}/personalInfo")
+    @ApiOperation(value = "查询今日佳人详情", notes = "根据用户ID查询今日佳人的详细信息")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "查询成功", response = TodayBest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<TodayBest> queryTodayBest(@PathVariable("id")
                                                     Long userId) {
         try {
@@ -61,6 +76,7 @@ public class TodayBestController {
      * @return
      */
     @GetMapping("recommendation")
+    @ApiOperation(value = "推荐朋友列表", notes = "根据查询参数和令牌获取推荐用户列表")
     public PageResult queryRecommendUserList(RecommendUserQueryParam
                                                      queryParam, @RequestHeader("Authorization") String token) {
         return todayBestService.queryRecommendUserList(queryParam,
@@ -69,6 +85,7 @@ public class TodayBestController {
 
 
     @GetMapping("strangerQuestions")
+    @ApiOperation(value = "查询问题", notes = "根据用户ID查询问题内容")
     public ResponseEntity<String> queryQuestion(@RequestParam("userId")
                                                 Long userId) {
         try {
@@ -84,6 +101,7 @@ public class TodayBestController {
 
     //回答别人问题
     @PostMapping("strangerQuestions")
+    @ApiOperation(value = "回答问题", notes = "根据用户ID和回答内容回答问题")
     public ResponseEntity<Void> replyQuestion(@RequestBody Map<String,
                 Object> param) {
         try {
@@ -110,6 +128,7 @@ public class TodayBestController {
      * @return
      */
     @GetMapping("search")
+    @ApiOperation(value = "搜附近", notes = "根据性别和距离查询附近的人")
     public ResponseEntity<List<NearUserVo>>
     queryNearUser(@RequestParam(value = "gender", required = false) String
                           gender,
@@ -129,6 +148,11 @@ public class TodayBestController {
 
     //tanhua day10
     @GetMapping("cards")
+    @ApiOperation(value = "查询卡片列表", notes = "查询卡片列表")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "查询成功", response = TodayBest.class, responseContainer = "List"),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<List<TodayBest>> queryCardsList() {
         try{
             List<TodayBest> list = todayBestService.queryCardList();
@@ -150,6 +174,11 @@ public class TodayBestController {
      * @return
      */
     @GetMapping("{id}/love")
+    @ApiOperation(value = "喜欢用户", notes = "用户表示喜欢某个用户")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "喜欢成功", response = Void.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Void> likeUser(@PathVariable("id") Long
                                                  likeUserId) {
         try {
@@ -171,6 +200,11 @@ public class TodayBestController {
      * @return
      */
     @GetMapping("{id}/unlove")
+    @ApiOperation(value = "取消喜欢用户", notes = "用户取消喜欢某个用户")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "取消喜欢成功", response = Void.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Void> disLikeUser(@PathVariable("id") Long
                                                     likeUserId) {
         try {

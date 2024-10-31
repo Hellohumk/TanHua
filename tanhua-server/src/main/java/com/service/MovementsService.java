@@ -1,15 +1,18 @@
 package com.service;
 
-import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.QuanZiApi;
-import com.api.VisitorsApi;
+import com.dubbo.api.QuanZiApi;
+import com.dubbo.api.VisitorsApi;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pojo.Publish;
+import com.dubbo.pojo.Publish;
+import com.dubbo.pojo.vo.PageInfo;
 import com.pojo.User;
 import com.pojo.UserInfo;
-import com.pojo.Visitors;
-import com.pojo.vo.*;
+import com.dubbo.pojo.Visitors;
+import com.pojo.vo.Movements;
+import com.pojo.vo.PageResult;
+import com.pojo.vo.PicUploadResult;
+import com.pojo.vo.VisitorsVo;
 import com.utils.UserThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +100,7 @@ public class MovementsService {
      * @param isRecommend
      * @return
      */
-    public PageResult queryPublishList(Integer page, Integer pageSize,Boolean isRecommend) {
+    public PageResult queryPublishList(Integer page, Integer pageSize, Boolean isRecommend) {
         //User
         User user = UserThreadLocal.get();
 
@@ -115,7 +118,7 @@ public class MovementsService {
 
         //取出list of publish
         List<Publish> records = pageInfo.getRecords();
-        if (CollectionUtils.isEmpty(records)) {
+        if (records.isEmpty()) {
 //没有动态信息
             return pageResult;//即records == null
         }
@@ -418,7 +421,7 @@ public class MovementsService {
             //TODO 这里不用更新redis吗？
         }
 
-        if(CollectionUtils.isEmpty(visitorsList)){
+        if(visitorsList.isEmpty()){
             //没人看过我 666
             return Collections.emptyList();
         }

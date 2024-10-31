@@ -1,8 +1,8 @@
 package com.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.QuanZiApi;
-import com.pojo.Publish;
+import com.dubbo.api.QuanZiApi;
+import com.dubbo.pojo.Publish;
 import com.pojo.User;
 import com.utils.UserThreadLocal;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;

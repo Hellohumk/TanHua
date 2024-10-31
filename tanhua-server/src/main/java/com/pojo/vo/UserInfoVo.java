@@ -1,5 +1,6 @@
 package com.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ userinfo vo
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "UserInfoVo", description = "用户信息")
 public class UserInfoVo {
     private Long id;
     private String avatar; //头像

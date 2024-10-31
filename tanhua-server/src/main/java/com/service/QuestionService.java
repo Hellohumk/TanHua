@@ -1,7 +1,6 @@
 package com.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.mapper.QuestionMapper;
 import com.pojo.Question;
 import org.springframework.beans.factory.annotation.Autowired;

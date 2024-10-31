@@ -2,29 +2,30 @@ package com.service;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.UserLikeApi;
-import com.api.UserLocationApi;
+import com.dubbo.api.UserLikeApi;
+import com.dubbo.api.UserLocationApi;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dubbo.pojo.vo.PageInfo;
+import com.dubbo.pojo.vo.UserLocationVo;
 import com.enums.SexEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojo.Question;
-import com.pojo.RecommendUser;
+import com.dubbo.pojo.RecommendUser;
 import com.pojo.User;
 import com.pojo.UserInfo;
 import com.pojo.dto.RecommendUserQueryParam;
-import com.pojo.vo.*;
+import com.pojo.vo.NearUserVo;
+import com.pojo.vo.PageResult;
+import com.pojo.vo.TodayBest;
 import com.utils.UserThreadLocal;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -130,7 +131,7 @@ public class TodayBestService {
 
         // 判断record day09
         //如果没查到，就是用推荐列表
-        if(CollectionUtils.isEmpty(records)){
+        if(records.isEmpty()){
             String[] ss = StringUtils.split(defaultRecommendUsers,",");
 
             for(String s : ss){
@@ -295,7 +296,7 @@ public class TodayBestService {
         List<UserLocationVo> userLocationList = this.userLocationApi.queryUserFromLocation(longitude, latitude, Integer.valueOf(distance));
 
         //附近没有bitch
-        if (CollectionUtils.isEmpty(userLocationList)) {
+        if (userLocationList.isEmpty()) {
             return Collections.emptyList();
         }
 
@@ -357,7 +358,7 @@ public class TodayBestService {
         PageInfo<RecommendUser> pageInfo = this.recommendUserService.queryRecommendUserList(user.getId(), 1, count);//查询所有佳人，一页50个，第一页的（评分最高的50个）
 
         //lol 你没有推荐的
-        if (CollectionUtils.isEmpty(pageInfo.getRecords())) {
+        if (pageInfo.getRecords().isEmpty()) {
 //默认推荐列表
             String[] ss = StringUtils.split(defaultRecommendUsers, ',');
             for (String s : ss) {

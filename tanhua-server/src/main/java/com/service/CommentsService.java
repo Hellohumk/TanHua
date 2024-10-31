@@ -2,18 +2,16 @@ package com.service;
 
 import cn.hutool.core.date.DateTime;
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.QuanZiApi;
+import com.dubbo.api.QuanZiApi;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.pojo.Comment;
+import com.dubbo.pojo.Comment;
 import com.pojo.User;
 import com.pojo.UserInfo;
 import com.pojo.vo.CommentsVO;
-import com.pojo.vo.PageInfo;
+import com.dubbo.pojo.vo.PageInfo;
 import com.pojo.vo.PageResult;
 import com.utils.UserThreadLocal;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

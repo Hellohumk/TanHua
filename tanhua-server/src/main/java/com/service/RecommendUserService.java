@@ -1,9 +1,9 @@
 package com.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.RecommendUserApi;
-import com.pojo.RecommendUser;
-import com.pojo.vo.PageInfo;
+import com.dubbo.api.RecommendUserApi;
+import com.dubbo.pojo.RecommendUser;
+import com.dubbo.pojo.vo.PageInfo;
 import com.pojo.vo.TodayBest;
 import org.springframework.stereotype.Service;
 

@@ -3,6 +3,8 @@ package com.controller;
 import com.annotation.NoAuthorization;
 import com.pojo.vo.PageResult;
 import com.service.IMService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("messages")
+@Api(value = "IM消息中心", tags = "IM消息中心")
 public class IMController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IMController.class);
@@ -22,6 +25,7 @@ public class IMController {
     private IMService imService;
 
     @PostMapping("contacts")
+    @ApiOperation(value = "添加联系人", notes = "添加联系人")
     public ResponseEntity<Void> contactUser(@RequestBody Map<String,
                 Object> param) {
         try {
@@ -46,6 +50,7 @@ public class IMController {
      * @return
      */
     @GetMapping("contacts")
+    @ApiOperation(value = "查询联系人列表", notes = "查询联系人列表")
     public ResponseEntity<PageResult> queryContactsList(@RequestParam(value
             = "page", defaultValue = "1") Integer page,
                                                         @RequestParam(value = "pagesize", defaultValue = "10") Integer pageSize,
@@ -63,6 +68,7 @@ public class IMController {
      * @return
      */
     @GetMapping("likes")
+    @ApiOperation(value = "查询点赞列表", notes = "查询点赞列表")
     public ResponseEntity<PageResult>
     queryMessageLikeList(@RequestParam(value = "page", defaultValue = "1")
                          Integer page,
@@ -80,6 +86,7 @@ public class IMController {
      * @return
      */
     @GetMapping("loves")
+    @ApiOperation(value = "查询喜欢列表", notes = "查询喜欢列表")
     public ResponseEntity<PageResult>
     queryMessageLoveList(@RequestParam(value = "page", defaultValue = "1")
                          Integer page,
@@ -97,6 +104,7 @@ public class IMController {
      * @return
      */
     @GetMapping("comments")
+    @ApiOperation(value = "查询评论列表", notes = "查询评论列表")
     public ResponseEntity<PageResult>
     queryMessageCommentList(@RequestParam(value = "page", defaultValue = "1")
                          Integer page,
@@ -115,6 +123,7 @@ public class IMController {
      */
     @GetMapping("announcements")
     @NoAuthorization //优化，无需进行token校验
+    @ApiOperation(value = "查询公告列表", notes = "查询公告列表")
     public ResponseEntity<PageResult>
     queryMessageAnnouncementList(@RequestParam(value = "page", defaultValue =
             "1") Integer page,

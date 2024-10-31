@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class UserInfoService {
+
     @Autowired
     private UserInfoMapper userInfoMapper;
 

@@ -5,7 +5,12 @@ import com.pojo.vo.PageResult;
 import com.pojo.vo.VisitorsVo;
 import com.service.MovementsService;
 import com.service.QuanZiMQService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("movements")
+@Api(value = "动态模块", tags = "动态相关接口")
 public class MovementsController {
 
     @Autowired
@@ -36,6 +42,11 @@ public class MovementsController {
      * @return
      */
     @PostMapping()
+    @ApiOperation(value = "保存动态", notes = "保存动态，三个表同时更新")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = void.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Void> savePublish(@RequestParam(value =
             "textContent", required = false) String textContent,
                                             @RequestParam(value =
@@ -72,6 +83,11 @@ public class MovementsController {
      * @return
      */
     @GetMapping
+    @ApiOperation(value = "查询动态列表", notes = "根据条件查询动态列表")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "查询成功", response = PageRequest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public PageResult queryPublishList(@RequestParam(value = "page",
             defaultValue = "1") Integer page,
                                        @RequestParam(value = "pagesize",
@@ -86,7 +102,14 @@ public class MovementsController {
      * @param pageSize
      * @return
      */
+
+
     @GetMapping("recommend")
+    @ApiOperation(value = "查询推荐动态列表", notes = "根据条件查询推荐动态列表")
+    @ApiResponses({
+                @ApiResponse(code = 200, message = "查询成功", response = PageRequest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public PageResult queryRecommendPublishList(@RequestParam(value =
             "page", defaultValue = "1") Integer page,
                                                 @RequestParam(value = "pagesize",
@@ -102,6 +125,11 @@ public class MovementsController {
      * @return
      */
     @GetMapping("{id}/like")
+    @ApiOperation(value = "点赞", notes = "点赞操作")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = PageRequest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Long> likeComment(@PathVariable("id") String
                                                     publishId) {
         try{
@@ -128,6 +156,11 @@ public class MovementsController {
      * @return
      */
     @GetMapping("/{id}/dislike")
+    @ApiOperation(value = "取消点赞", notes = "取消点赞操作")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = PageRequest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Long> disLikeComment(@PathVariable("id") String
                                                        publishId) {
         try {
@@ -154,6 +187,12 @@ public class MovementsController {
      * @return
      */
     @GetMapping("/{id}/love")
+    @ApiOperation(value = "喜欢", notes = "喜欢")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = PageRequest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
+
     public ResponseEntity<Long> loveComment(@PathVariable("id") String publishId){
         try{
             Long loveCount = movementsService.loveComment(publishId);
@@ -173,6 +212,13 @@ public class MovementsController {
 
     }
 
+
+    @GetMapping("/{id}/dislove")
+    @ApiOperation(value = "取消喜欢", notes = "取消喜欢")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = PageRequest.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Long> disLoveComment(@PathVariable("id") String publishId) {
         try {
             Long loveCount = this.movementsService.cancelLoveComment(publishId);
@@ -198,6 +244,7 @@ public class MovementsController {
      * @return
      */
     @GetMapping("/{id}")
+    @ApiOperation(value = "查询单条动态信息", notes = "查询指定ID的动态信息")
     public ResponseEntity<Movements> queryById(@PathVariable("id") String
                                                        publishId) {
         try {
@@ -224,6 +271,7 @@ public class MovementsController {
      * @return
      */
     @GetMapping("visitors")
+    @ApiOperation(value = "谁看过我", notes = "查询看过我动态的用户列表")
     public ResponseEntity<List<VisitorsVo>> queryVisitorsList(){
         try {
             List<VisitorsVo> list =
@@ -244,6 +292,7 @@ public class MovementsController {
 //     * @return  PageResult<Movement>
      */
     @GetMapping("all")
+    @ApiOperation(value = "分页查询自己发布的publish", notes = "分页查询自己发布的publish")
     public ResponseEntity<PageResult> queryAlbumList(@RequestParam(value =
             "page", defaultValue = "1") Integer page,
                                                      @RequestParam(value =

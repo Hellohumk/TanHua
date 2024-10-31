@@ -1,7 +1,7 @@
 package com.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.api.UserLocationApi;
+import com.dubbo.api.UserLocationApi;
 import com.pojo.User;
 import com.utils.UserThreadLocal;
 import org.springframework.stereotype.Service;

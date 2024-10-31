@@ -3,12 +3,20 @@ package com.service;
 import cn.hutool.core.date.DateTime;
 import com.alibaba.dubbo.config.annotation.Reference;
 
-import com.api.QuanZiApi;
-import com.api.UsersApi;
+import com.dubbo.api.QuanZiApi;
+import com.dubbo.api.UsersApi;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.pojo.*;
-import com.pojo.vo.*;
+import com.dubbo.pojo.Comment;
+import com.dubbo.pojo.Users;
+import com.dubbo.pojo.vo.PageInfo;
+import com.pojo.Announcement;
+import com.pojo.User;
+import com.pojo.UserInfo;
+import com.pojo.vo.Contacts;
+import com.pojo.vo.MessageAnnouncement;
+import com.pojo.vo.MessageLike;
+import com.pojo.vo.PageResult;
 import com.utils.UserThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +58,7 @@ public class IMService {
     public boolean contactUser(Long userId) {
         User user = UserThreadLocal.get();
 
-        Users users = new Users();
+        com.dubbo.pojo.Users users = new Users();
         users.setUserId(user.getId());
         users.setFriendId(userId);
 
@@ -82,7 +90,7 @@ public class IMService {
     public PageResult queryContactsList(Integer page, Integer pageSize, String keyword) {
         User user = UserThreadLocal.get();
 
-        List<Users> usersList = null;
+        List<com.dubbo.pojo.Users> usersList = null;
 
         //这里的查询是为了和后面userinfo查出来的一一对应，故这里做出的决策是：宁大勿小
         //给关键字就不能分页，就给全部；分了页就给这一页就行
@@ -94,14 +102,14 @@ public class IMService {
             usersList = this.usersApi.queryAllUsersList(user.getId());
         } else {
             //空则按分页查询
-            PageInfo<Users> usersPageInfo =
+            PageInfo<com.dubbo.pojo.Users> usersPageInfo =
                     this.usersApi.queryUsersList(user.getId(), page, pageSize);
             usersList = usersPageInfo.getRecords();
         }
 
         //UserInfo 那一套
         List<Long> userIds = new ArrayList<>();
-        for (Users users : usersList) {
+        for (com.dubbo.pojo.Users users : usersList) {
             userIds.add(users.getFriendId());
         }
         //mp 查询 每个id对应的userInfo
@@ -118,7 +126,7 @@ public class IMService {
         List<Contacts> contactsList = new ArrayList<>();
 
         if(StringUtils.isEmpty(keyword)){
-            for (Users users : usersList) {
+            for (com.dubbo.pojo.Users users : usersList) {
                 for (UserInfo userInfo : userInfoList) {
                     if (users.getFriendId().longValue() ==
                             userInfo.getUserId().longValue()) {

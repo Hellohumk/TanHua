@@ -2,6 +2,10 @@ package com.controller;
 
 import com.pojo.vo.UserInfoVo;
 import com.service.UsersService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("users")
+@Api(value = "用户资料模块", tags = "用户资料相关接口")
 public class UsersController {
 
     @Autowired
@@ -22,6 +27,11 @@ public class UsersController {
      * @return
      */
     @GetMapping
+    @ApiOperation(value = "查询用户信息", notes = "根据用户ID和换信ID查询用户信息")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "查询成功", response = UserInfoVo.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<UserInfoVo> queryUserInfo(@RequestParam(value =
             "userID", required = false) String userID,
                                                     @RequestParam(value =
@@ -44,6 +54,11 @@ public class UsersController {
      * @return
      */
     @PutMapping
+    @ApiOperation(value = "更新用户信息", notes = "通过表单更新用户信息")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "更新成功", response = Void.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Void> updateUserInfo(@RequestBody UserInfoVo userInfoVo){
 
         try {

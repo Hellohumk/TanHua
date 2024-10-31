@@ -1,5 +1,6 @@
 package com.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "Contacts", description = "环信 contacts VO")
 public class Contacts {
     private Long id;
     private String userId;

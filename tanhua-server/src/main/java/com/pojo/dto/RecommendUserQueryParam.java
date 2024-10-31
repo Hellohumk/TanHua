@@ -1,5 +1,6 @@
 package com.pojo.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "推荐用户查询参数")
 public class RecommendUserQueryParam {
     private Integer page = 1; //当前页数
     private Integer pagesize = 10; //页尺寸

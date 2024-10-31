@@ -1,6 +1,7 @@
 package com.pojo;
 
 import com.enums.SexEnum;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel("用户详细信息")
 public class UserInfo extends BasePojo {
     private Long id;
     private Long userId;

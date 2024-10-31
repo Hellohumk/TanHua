@@ -1,9 +1,11 @@
 package com.pojo.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 
 @Data
+@ApiModel(value = "PicUploadResult", description = "图片上传结果")
 public class PicUploadResult {
     // 文件唯一标识
     private String uid;

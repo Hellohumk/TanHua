@@ -4,12 +4,15 @@ import com.pojo.vo.PageResult;
 import com.service.CommentsService;
 import com.service.MovementsService;
 import com.service.QuanZiMQService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.spi.ResolveResult;
 import java.util.Map;
 
 /*
@@ -18,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("comments")
+@Api(value="评论模块")
 public class CommentsController {
     @Autowired
     private CommentsService commentsService;
@@ -37,6 +41,11 @@ public class CommentsController {
      * @return
      */
     @GetMapping()
+    @ApiOperation(value = "分页查询评论列表", notes = "根据动态ID分页查询评论")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "查询成功", response = PageResult.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<PageResult> queryCommentsList(@RequestParam("movementId") String publishId,
                                                         @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                         @RequestParam(value = "pagesize", defaultValue = "10") Integer pagesize){
@@ -56,6 +65,11 @@ public class CommentsController {
     * 保存评论
     */
     @PostMapping
+    @ApiOperation(value = "保存评论", notes = "保存用户对动态的评论")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "保存成功"),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Void> saveComments(@RequestBody
                                              Map<String,String> param) {
         try {
@@ -88,6 +102,12 @@ public class CommentsController {
      * @param publishId
      * @return
      */
+    @GetMapping("/{id}/like")
+    @ApiOperation(value = "点赞评论", notes = "用户对评论的点赞")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "点赞成功", response = Long.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Long> likeComment(@PathVariable("id") String publishId){
         try{
             Long likeCount = movementsService.likeComment(publishId);
@@ -108,6 +128,11 @@ public class CommentsController {
      * @return
      */
     @GetMapping("/{id}/dislike")
+    @ApiOperation(value = "取消点赞评论", notes = "用户取消对评论的点赞")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "取消点赞成功", response = Long.class),
+            @ApiResponse(code = 500, message = "内部服务器错误")
+    })
     public ResponseEntity<Long> disLikeComment(@PathVariable("id") String
                                                        publishId) {
         try {
