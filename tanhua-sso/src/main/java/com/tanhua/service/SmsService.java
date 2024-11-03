@@ -76,7 +76,7 @@ public class SmsService {
             String rediskey = "CHECK_CODE_" + phone;
             String value = this.redisTemplate.opsForValue().get(rediskey);
             if(! StringUtils.isEmpty(value)){
-                //不是空证明code还在，没失效,直接给用户再传过去，不用重新生成
+                //不是空证明code还在，没失效,直接给用户再传过去，不用重新发sms
                 result.put("code",1);//验证成功
                 result.put("msg","上一次发送的验证码还没失效");
                 return result;

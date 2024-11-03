@@ -9,9 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private RedisCacheInterceptor redisCacheInterceptor;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private TokenInterceptor tokenInterceptor;
 
@@ -23,7 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        registry.addInterceptor(this.tokenInterceptor).addPathPatterns("/**");
+        //测试时关闭拦截器
+//        registry.addInterceptor(this.tokenInterceptor).addPathPatterns("/**");
 
 
         registry.addInterceptor(this.redisCacheInterceptor).addPathPatterns("/**");

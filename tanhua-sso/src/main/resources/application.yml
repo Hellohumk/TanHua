@@ -54,7 +54,7 @@ mybatis-plus:
 #sdk 人脸 windows
 config:
   arcface-sdk:
-    sdk-lib-path: F:\tanhuaPic\ArcSoft_ArcFace_Java_Windows_x64_V3.0\libs
+    sdk-lib-path: F:\tanhuaPic\ArcSoft_ArcFace_Java_Windows_x64_V3.0\libs\WIN64
     app-id: 6CqRE8Pt3iZNUode34pMoWNYU3LrYz1N6SYrRkvEq9qV
     sdk-key: 4chj6TDvbBbAdBrD3muxTm7sJe7sCpk4S17sk2ULPKQe
 

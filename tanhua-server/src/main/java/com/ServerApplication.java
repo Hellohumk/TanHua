@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @EnableAspectJAutoProxy
-@EnableSwagger2
+//@EnableSwagger2
 @MapperScan("com.mapper") //设置mapper接口的扫描包
 @SpringBootApplication(exclude = {
         MongoAutoConfiguration.class,
